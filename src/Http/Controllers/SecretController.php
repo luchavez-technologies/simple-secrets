@@ -77,7 +77,7 @@ class SecretController extends Controller
 
         event(new SecretCollectedEvent($data));
 
-        return customResponse()
+        return simpleResponse()
             ->data($data)
             ->message('Successfully collected record.')
             ->success()
@@ -104,7 +104,7 @@ class SecretController extends Controller
 
         event(new SecretShownEvent($secret));
 
-        return customResponse()
+        return simpleResponse()
             ->data($secret)
             ->message('Successfully collected record.')
             ->success()
@@ -131,7 +131,7 @@ class SecretController extends Controller
 
         event(new SecretArchivedEvent($secret));
 
-        return customResponse()
+        return simpleResponse()
             ->data($secret)
             ->message('Successfully archived record.')
             ->success()
@@ -158,7 +158,7 @@ class SecretController extends Controller
 
         event(new SecretRestoredEvent($data));
 
-        return customResponse()
+        return simpleResponse()
             ->data($data)
             ->message('Successfully restored record.')
             ->success()
