@@ -37,7 +37,7 @@ class InvalidSecretException extends Exception
      */
     public function render(Request $request): JsonResponse
     {
-        return customResponse()
+        return simpleResponse()
             ->message($this->message)
             ->code($this->code)
             ->generate();

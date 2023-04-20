@@ -7,11 +7,6 @@
             "name": "James Carlo Luchavez",
             "email": "jamescarloluchavez@gmail.com",
             "homepage": "https://www.linkedin.com/in/jsluchavez"
-        },
-        {
-            "name": "Fligno",
-            "email": "apps@fligno.com",
-            "homepage": "https://fligno.com/"
         }
     ],
     "homepage": "https://github.com/luchmewep/simple-secrets",
@@ -37,7 +32,13 @@
         "psr-4": {
             "Luchavez\\SimpleSecrets\\": "src/",
             "Luchavez\\SimpleSecrets\\Database\\Seeders\\": "database/seeders/",
-            "Luchavez\\SimpleSecrets\\Database\\Factories\\": "database/factories/"
+            "Luchavez\\SimpleSecrets\\Database\\Factories\\": "database/factories/",
+            "Luchavez\\SimpleSecrets\\Domains\\Otp\\": "domains/Otp/src/",
+            "Luchavez\\SimpleSecrets\\Domains\\Otp\\Database\\Factories\\": "domains/Otp/database/factories/",
+            "Luchavez\\SimpleSecrets\\Domains\\Otp\\Database\\Seeders\\": "domains/Otp/database/seeders/",
+            "Luchavez\\SimpleSecrets\\Domains\\Google2fa\\": "domains/Google2fa/src/",
+            "Luchavez\\SimpleSecrets\\Domains\\Google2fa\\Database\\Factories\\": "domains/Google2fa/database/factories/",
+            "Luchavez\\SimpleSecrets\\Domains\\Google2fa\\Database\\Seeders\\": "domains/Google2fa/database/seeders/"
         }
     },
     "autoload-dev": {
@@ -48,7 +49,9 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Luchavez\\SimpleSecrets\\Providers\\SimpleSecretsServiceProvider"
+                "Luchavez\\SimpleSecrets\\Providers\\SimpleSecretsServiceProvider",
+                "Luchavez\\SimpleSecrets\\Domains\\Otp\\Providers\\OtpProvider",
+                "Luchavez\\SimpleSecrets\\Domains\\Google2fa\\Providers\\Google2faProvider"
             ],
             "aliases": {
                 "SimpleSecrets": "Luchavez\\SimpleSecrets\\Facades\\SimpleSecrets"
