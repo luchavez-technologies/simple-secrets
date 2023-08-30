@@ -119,11 +119,6 @@ class SimpleSecretsServiceProvider extends ServiceProvider implements ProviderHt
         parent::boot();
 
         $this->registerAuthenticationGuards();
-
-        // Set default validation rules for passwords
-        simpleSecrets()->setValidationRules('password', [
-            Password::min(12)->letters()->mixedCase()->numbers()->uncompromised()
-        ]);
     }
 
     /**
