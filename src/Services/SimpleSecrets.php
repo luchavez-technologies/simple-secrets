@@ -359,7 +359,7 @@ class SimpleSecrets
 
         // Get validation rules
 
-        if (is_null($validation_rules)) {
+        if (empty($validation_rules)) {
             return;
         }
 
@@ -378,11 +378,7 @@ class SimpleSecrets
         $rules[is_array($value) ? $accessor_name.'.*' : $accessor_name] = $validation_rules;
 
         // Prepare validator
-        $validator = Validator::make(
-            data: [$accessor_name => $value],
-            rules: $rules,
-            customAttributes: [$accessor_name => $display_name]
-        );
+        $validator = Validator::make([$accessor_name => $value], $rules, [], [$accessor_name => $display_name]);
 
         // Execute validation
         $validator->validate();

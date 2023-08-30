@@ -1,6 +1,6 @@
 {
     "name": "luchavez/simple-secrets",
-    "description": "Manage user secrets like passwords and PINs with expirations",
+    "description": "Manage user secrets like passwords and PINs with expirations for Laravel 8|9|10",
     "license": "MIT",
     "authors": [
         {
