@@ -28,7 +28,10 @@ class SecretObserver
     public function created(Secret $secret): void
     {
         $expires_at = simpleSecrets()->getTypeByKey($secret->type)->get('expires_after');
-        $secret->expire($expires_at);
+
+        if ($expires_at) {
+            $secret->expire($expires_at);
+        }
     }
 
     /**
