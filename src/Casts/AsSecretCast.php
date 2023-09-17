@@ -3,10 +3,10 @@
 namespace Luchavez\SimpleSecrets\Casts;
 
 use Exception;
-use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
-use Luchavez\SimpleSecrets\Exceptions\SecretAlreadyExistsException;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
+use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
+use Luchavez\SimpleSecrets\Exceptions\SecretAlreadyExistsException;
 
 /**
  * Class AsSecretCast
@@ -18,11 +18,12 @@ class AsSecretCast implements CastsAttributes
     /**
      * Cast the given value.
      *
-     * @param Model $model
-     * @param string $key
-     * @param mixed $value
-     * @param array $attributes
+     * @param  Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
      * @return array|string|null
+     *
      * @throws NoActiveSecretException
      */
     public function get($model, string $key, $value, array $attributes): array|string|null
@@ -35,10 +36,10 @@ class AsSecretCast implements CastsAttributes
      *
      * When setting new secret, it should be unique compared to previous x secrets.
      *
-     * @param Model $model
-     * @param string $key
-     * @param mixed $value
-     * @param array $attributes
+     * @param  Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
      * @return array|string|null
      *
      * @throws SecretAlreadyExistsException

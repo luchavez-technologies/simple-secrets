@@ -2,9 +2,8 @@
 
 namespace Luchavez\SimpleSecrets\Database\Factories;
 
-// Model
-use Luchavez\SimpleSecrets\Models\Secret;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Luchavez\SimpleSecrets\Models\Secret;
 
 /**
  * Class Secret

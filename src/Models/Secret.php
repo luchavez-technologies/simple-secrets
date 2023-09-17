@@ -2,15 +2,15 @@
 
 namespace Luchavez\SimpleSecrets\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Luchavez\SimpleSecrets\Traits\HasSecretFactoryTrait;
 use Luchavez\StarterKit\Traits\ModelDisablingTrait;
 use Luchavez\StarterKit\Traits\ModelExpiringTrait;
 use Luchavez\StarterKit\Traits\ModelOwnedTrait;
 use Luchavez\StarterKit\Traits\ModelUsedTrait;
 use Luchavez\StarterKit\Traits\UsesUUIDTrait;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Secret
@@ -54,7 +54,7 @@ class Secret extends Model
      * @var string[]
      */
     protected $hidden = [
-        'value'
+        'value',
     ];
 
     /**
@@ -65,7 +65,7 @@ class Secret extends Model
     ];
 
     protected $appends = [
-        'display'
+        'display',
     ];
 
     /***** RELATIONSHIPS *****/

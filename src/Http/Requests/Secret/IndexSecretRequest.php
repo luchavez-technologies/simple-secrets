@@ -2,7 +2,7 @@
 
 namespace Luchavez\SimpleSecrets\Http\Requests\Secret;
 
-use Luchavez\StarterKit\Requests\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class IndexSecretRequest

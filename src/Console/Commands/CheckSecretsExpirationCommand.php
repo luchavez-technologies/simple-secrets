@@ -2,9 +2,9 @@
 
 namespace Luchavez\SimpleSecrets\Console\Commands;
 
+use Illuminate\Console\Command;
 use Luchavez\SimpleSecrets\Jobs\CheckSecretsExpirationJob;
 use Luchavez\StarterKit\Traits\UsesCommandCustomMessagesTrait;
-use Illuminate\Console\Command;
 
 /**
  * Class CheckSecretsExpirationCommand

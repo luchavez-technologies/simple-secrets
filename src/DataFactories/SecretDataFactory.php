@@ -2,10 +2,9 @@
 
 namespace Luchavez\SimpleSecrets\DataFactories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Luchavez\SimpleSecrets\Models\Secret;
 use Luchavez\StarterKit\Abstracts\BaseDataFactory;
-// Model
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class SecretDataFactory
@@ -27,7 +26,7 @@ class SecretDataFactory extends BaseDataFactory
     /**
      * @var string|null
      */
-    public string|null $description;
+    public ?string $description;
 
     /**
      * @var bool
@@ -37,7 +36,7 @@ class SecretDataFactory extends BaseDataFactory
     /**
      * @var int|null
      */
-    public int|null $usage_left = null;
+    public ?int $usage_left = null;
 
     /**
      * @return Builder

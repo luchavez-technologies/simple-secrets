@@ -2,10 +2,10 @@
 
 namespace Luchavez\SimpleSecrets\Traits;
 
-use Luchavez\SimpleSecrets\Casts\AsSecretCast;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Collection;
+use Luchavez\SimpleSecrets\Casts\AsSecretCast;
 
 /**
  * Trait HasSecretsTrait

@@ -4,13 +4,6 @@ namespace Luchavez\SimpleSecrets\Services;
 
 use Closure;
 use Exception;
-use Luchavez\SimpleSecrets\DataFactories\SecretDataFactory;
-use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
-use Luchavez\SimpleSecrets\Jobs\PurgeStaleSecretsJob;
-use Luchavez\SimpleSecrets\Models\Secret;
-use Luchavez\SimpleSecrets\Traits\HasSecretsTrait;
-use Luchavez\StarterKit\Services\StarterKit;
-use Luchavez\StarterKit\Traits\HasTaggableCacheTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
@@ -21,6 +14,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ItemNotFoundException;
 use Illuminate\Validation\ValidationException;
+use Luchavez\SimpleSecrets\DataFactories\SecretDataFactory;
+use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
+use Luchavez\SimpleSecrets\Jobs\PurgeStaleSecretsJob;
+use Luchavez\SimpleSecrets\Models\Secret;
+use Luchavez\SimpleSecrets\Traits\HasSecretsTrait;
+use Luchavez\StarterKit\Services\StarterKit;
+use Luchavez\StarterKit\Traits\HasTaggableCacheTrait;
 
 /**
  * Class SimpleSecrets
@@ -57,7 +57,7 @@ class SimpleSecrets
     protected array $masking_callbacks = [];
 
     /**
-     * @param StarterKit $starter_kit
+     * @param  StarterKit  $starter_kit
      */
     public function __construct(public StarterKit $starter_kit)
     {
@@ -110,10 +110,10 @@ class SimpleSecrets
     }
 
     /**
-     * @param string|null $type
+     * @param  string|null  $type
      * @return array|null
      */
-    public function getValidationRules(string $type = null): array|null
+    public function getValidationRules(string $type = null): ?array
     {
         if ($type) {
             return Arr::get($this->validation_rules, $type);
@@ -123,8 +123,8 @@ class SimpleSecrets
     }
 
     /**
-     * @param string $type
-     * @param array $validation_rules
+     * @param  string  $type
+     * @param  array  $validation_rules
      */
     public function setValidationRules(string $type, array $validation_rules): void
     {
@@ -134,17 +134,17 @@ class SimpleSecrets
     /***** MASKING RELATED *****/
 
     /**
-     * @param string $type
+     * @param  string  $type
      * @return Closure|null
      */
-    public function getMaskingMethod(string $type): Closure|null
+    public function getMaskingMethod(string $type): ?Closure
     {
         return Arr::get($this->masking_callbacks, $type);
     }
 
     /**
-     * @param string $type
-     * @param Closure $closure
+     * @param  string  $type
+     * @param  Closure  $closure
      */
     public function setMaskingMethod(string $type, Closure $closure): void
     {
@@ -190,9 +190,8 @@ class SimpleSecrets
     }
 
     /**
-     * @param string $accessor_name
+     * @param  string  $accessor_name
      * @return Collection
-     *
      */
     public function getTypeByAccessorName(string $accessor_name): Collection
     {
@@ -241,11 +240,12 @@ class SimpleSecrets
     }
 
     /**
-     * @param User $user
-     * @param string $accessor_name
-     * @param bool $rehydrate
-     * @param bool $value_only
+     * @param  User  $user
+     * @param  string  $accessor_name
+     * @param  bool  $rehydrate
+     * @param  bool  $value_only
      * @return \Illuminate\Database\Eloquent\Collection|Model|array|string|null
+     *
      * @throws NoActiveSecretException
      */
     public function getSecrets(User $user, string $accessor_name, bool $rehydrate = false, bool $value_only = false): \Illuminate\Database\Eloquent\Collection|Model|array|string|null
@@ -277,8 +277,7 @@ class SimpleSecrets
                         ->withExpired()
                         ->withDisabled()
                         ->withUsed()
-                        ->withTrashed()
-                    ;
+                        ->withTrashed();
 
                     // Set TTL to 0 so it won't be saved to the cache
                     $ttl = 0;
@@ -318,7 +317,7 @@ class SimpleSecrets
     }
 
     /**
-     * @param  User $user
+     * @param  User  $user
      * @param  string  $type
      * @return bool
      */
@@ -340,9 +339,10 @@ class SimpleSecrets
     /***** OTHER FUNCTIONS *****/
 
     /**
-     * @param string $accessor_name
-     * @param string|array $value
+     * @param  string  $accessor_name
+     * @param  string|array  $value
      * @return void
+     *
      * @throws ValidationException
      */
     public function validateSecret(string $accessor_name, string|array $value): void
@@ -385,10 +385,11 @@ class SimpleSecrets
     }
 
     /**
-     * @param string $accessor_name
-     * @param string|array $value
-     * @param User|null $user
+     * @param  string  $accessor_name
+     * @param  string|array  $value
+     * @param  User|null  $user
      * @return bool
+     *
      * @throws Exception
      */
     public function isSecretUnique(string $accessor_name, string|array $value, User $user = null): bool
@@ -467,9 +468,9 @@ class SimpleSecrets
     }
 
     /**
-     * @param User $user
-     * @param string $accessor_name
-     * @param string|array $value
+     * @param  User  $user
+     * @param  string  $accessor_name
+     * @param  string|array  $value
      * @return string|array|null
      */
     public function addNewSecret(User $user, string $accessor_name, string|array $value): string|array|null
@@ -534,10 +535,11 @@ class SimpleSecrets
     }
 
     /**
-     * @param string|array $input
-     * @param \Illuminate\Database\Eloquent\Collection<Secret>|Secret $secret
-     * @param bool $return_as_model
+     * @param  string|array  $input
+     * @param  \Illuminate\Database\Eloquent\Collection<Secret>|Secret  $secret
+     * @param  bool  $return_as_model
      * @return Secret|bool|null
+     *
      * @throws Exception
      */
     public function checkSecret(string|array $input, \Illuminate\Database\Eloquent\Collection|Secret $secret, bool $return_as_model = false): Secret|bool|null
@@ -588,7 +590,7 @@ class SimpleSecrets
      * If an array with "value" as key, return the value's value.
      * If an array consists of arrays with "value" as key, return the original array.
      *
-     * @param array|string $input
+     * @param  array|string  $input
      * @return array|string|null
      */
     protected function getValueFromInput(array|string $input): array|string|null
@@ -609,7 +611,7 @@ class SimpleSecrets
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      * @return PendingDispatch
      */
     public function purgeUserStaleSecrets(User $user): PendingDispatch
