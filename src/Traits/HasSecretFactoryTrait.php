@@ -2,9 +2,9 @@
 
 namespace Luchavez\SimpleSecrets\Traits;
 
-use Luchavez\SimpleSecrets\Database\Factories\SecretFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Luchavez\SimpleSecrets\Database\Factories\SecretFactory;
 
 /**
  * Trait HasSecretFactoryTrait

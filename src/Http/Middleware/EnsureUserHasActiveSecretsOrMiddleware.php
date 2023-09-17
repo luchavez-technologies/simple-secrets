@@ -2,8 +2,8 @@
 
 namespace Luchavez\SimpleSecrets\Http\Middleware;
 
-use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
 use Illuminate\Foundation\Auth\User;
+use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
 
 /**
  * Class EnsureUserHasActiveSecretsOrMiddleware
@@ -13,9 +13,10 @@ use Illuminate\Foundation\Auth\User;
 class EnsureUserHasActiveSecretsOrMiddleware extends EnsureUserHasActiveSecretsMiddleware
 {
     /**
-     * @param User $user
-     * @param array $accessor_names
+     * @param  User  $user
+     * @param  array  $accessor_names
      * @return void
+     *
      * @throws NoActiveSecretException
      */
     public function accessUserSecrets(User $user, array $accessor_names): void

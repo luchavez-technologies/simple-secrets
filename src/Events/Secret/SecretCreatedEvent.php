@@ -8,8 +8,6 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Queue\SerializesModels;
-
-// Model
 use Luchavez\SimpleSecrets\Models\Secret;
 
 /**

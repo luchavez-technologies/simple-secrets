@@ -37,8 +37,9 @@ class SecretObserver
     /**
      * Handle the Secret "updated" event.
      *
-     * @param Secret $secret
+     * @param  Secret  $secret
      * @return void
+     *
      * @throws NoActiveSecretException
      */
     public function updated(Secret $secret): void

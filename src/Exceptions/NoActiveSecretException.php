@@ -15,7 +15,8 @@ use Illuminate\Support\ItemNotFoundException;
 class NoActiveSecretException extends Exception
 {
     /**
-     * @param string ...$secret_type
+     * @param  string  ...$secret_type
+     *
      * @throws ItemNotFoundException
      */
     public function __construct(string ...$secret_type)

@@ -4,15 +4,15 @@ namespace Luchavez\SimpleSecrets\Http\Middleware;
 
 use Closure;
 use Exception;
-use Luchavez\SimpleSecrets\Exceptions\InvalidSecretException;
-use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
-use Luchavez\SimpleSecrets\Models\Secret;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use Luchavez\SimpleSecrets\Exceptions\InvalidSecretException;
+use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
+use Luchavez\SimpleSecrets\Models\Secret;
 use Throwable;
 
 /**
@@ -32,9 +32,9 @@ class RequireSecretsMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
-     * @param string ...$types
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @param  string  ...$types
      * @return mixed
      *
      * @throws AuthenticationException
@@ -50,7 +50,7 @@ class RequireSecretsMiddleware
         $secret_types = collect($types)
             ->map(fn ($item) => explode($this->is_and ? '&' : '|', $item))
             ->flatten()
-            ->map(function ($item) use ($next, $request) {
+            ->map(function ($item) use ($request) {
                 // If the type still contains | or &, we should call the appropriate counterpart middleware
                 $symbol = $this->is_and ? '|' : '&';
                 if (Str::contains($item, $symbol)) {
@@ -80,8 +80,8 @@ class RequireSecretsMiddleware
     }
 
     /**
-     * @param Request $request
-     * @param Collection<Collection> $types
+     * @param  Request  $request
+     * @param  Collection<Collection>  $types
      * @return void
      */
     public function validateSecretsFromRequest(Request $request, Collection $types): void
@@ -96,10 +96,11 @@ class RequireSecretsMiddleware
     }
 
     /**
-     * @param Request $request
-     * @param User $user
-     * @param Collection<Collection> $types
+     * @param  Request  $request
+     * @param  User  $user
+     * @param  Collection<Collection>  $types
      * @return void
+     *
      * @throws NoActiveSecretException
      * @throws InvalidSecretException
      * @throws Exception
@@ -136,7 +137,7 @@ class RequireSecretsMiddleware
     }
 
     /**
-     * @param Secret $secret
+     * @param  Secret  $secret
      * @return void
      */
     protected function decrementSecretUsageLeft(Secret $secret): void

@@ -2,10 +2,10 @@
 
 namespace Luchavez\SimpleSecrets\Events;
 
-use Luchavez\SimpleSecrets\Models\Secret;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Luchavez\SimpleSecrets\Models\Secret;
 
 /**
  * Class SecretExpiringEvent

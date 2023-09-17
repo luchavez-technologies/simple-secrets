@@ -2,14 +2,14 @@
 
 namespace Luchavez\SimpleSecrets\Jobs;
 
-use Luchavez\SimpleSecrets\Events\SecretExpiringEvent;
-use Luchavez\SimpleSecrets\Models\Secret;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Luchavez\SimpleSecrets\Events\SecretExpiringEvent;
+use Luchavez\SimpleSecrets\Models\Secret;
 
 /**
  * Class CheckSecretsExpirationJob

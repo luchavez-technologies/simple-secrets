@@ -3,24 +3,18 @@
 namespace Luchavez\SimpleSecrets\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+use Luchavez\SimpleSecrets\Events\Secret\SecretArchivedEvent;
+use Luchavez\SimpleSecrets\Events\Secret\SecretCollectedEvent;
+use Luchavez\SimpleSecrets\Events\Secret\SecretRestoredEvent;
+use Luchavez\SimpleSecrets\Events\Secret\SecretShownEvent;
+use Luchavez\SimpleSecrets\Http\Requests\Secret\DeleteSecretRequest;
+use Luchavez\SimpleSecrets\Http\Requests\Secret\IndexSecretRequest;
+use Luchavez\SimpleSecrets\Http\Requests\Secret\RestoreSecretRequest;
+use Luchavez\SimpleSecrets\Http\Requests\Secret\ShowSecretRequest;
+use Luchavez\SimpleSecrets\Models\Secret;
 use Luchavez\SimpleSecrets\Repositories\SecretRepository;
 use Luchavez\StarterKit\Exceptions\UnauthorizedException;
-use Illuminate\Http\JsonResponse;
-
-// Model
-use Luchavez\SimpleSecrets\Models\Secret;
-
-// Requests
-use Luchavez\SimpleSecrets\Http\Requests\Secret\IndexSecretRequest;
-use Luchavez\SimpleSecrets\Http\Requests\Secret\ShowSecretRequest;
-use Luchavez\SimpleSecrets\Http\Requests\Secret\DeleteSecretRequest;
-use Luchavez\SimpleSecrets\Http\Requests\Secret\RestoreSecretRequest;
-
-// Events
-use Luchavez\SimpleSecrets\Events\Secret\SecretCollectedEvent;
-use Luchavez\SimpleSecrets\Events\Secret\SecretShownEvent;
-use Luchavez\SimpleSecrets\Events\Secret\SecretArchivedEvent;
-use Luchavez\SimpleSecrets\Events\Secret\SecretRestoredEvent;
 use Spatie\QueryBuilder\AllowedFilter;
 
 /**
@@ -42,8 +36,9 @@ class SecretController extends Controller
      *
      * @group Secret Management
      *
-     * @param IndexSecretRequest $request
+     * @param  IndexSecretRequest  $request
      * @return JsonResponse
+     *
      * @throws UnauthorizedException
      */
     public function index(IndexSecretRequest $request): JsonResponse
@@ -89,9 +84,10 @@ class SecretController extends Controller
      *
      * @group Secret Management
      *
-     * @param ShowSecretRequest $request
-     * @param Secret $secret
+     * @param  ShowSecretRequest  $request
+     * @param  Secret  $secret
      * @return JsonResponse
+     *
      * @throws UnauthorizedException
      */
     public function show(ShowSecretRequest $request, Secret $secret): JsonResponse
@@ -116,9 +112,10 @@ class SecretController extends Controller
      *
      * @group Secret Management
      *
-     * @param DeleteSecretRequest $request
-     * @param Secret $secret
+     * @param  DeleteSecretRequest  $request
+     * @param  Secret  $secret
      * @return JsonResponse
+     *
      * @throws UnauthorizedException
      */
     public function destroy(DeleteSecretRequest $request, Secret $secret): JsonResponse
@@ -143,9 +140,10 @@ class SecretController extends Controller
      *
      * @group Secret Management
      *
-     * @param RestoreSecretRequest $request
+     * @param  RestoreSecretRequest  $request
      * @param $secret
      * @return JsonResponse
+     *
      * @throws UnauthorizedException
      */
     public function restore(RestoreSecretRequest $request, $secret): JsonResponse

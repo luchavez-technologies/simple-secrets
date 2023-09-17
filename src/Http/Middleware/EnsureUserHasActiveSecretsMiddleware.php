@@ -3,9 +3,9 @@
 namespace Luchavez\SimpleSecrets\Http\Middleware;
 
 use Closure;
-use Luchavez\SimpleSecrets\Traits\HasSecretsTrait;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Luchavez\SimpleSecrets\Traits\HasSecretsTrait;
 
 /**
  * Class EnsureUserHasActiveSecretsMiddleware
@@ -15,9 +15,9 @@ use Illuminate\Http\Request;
 class EnsureUserHasActiveSecretsMiddleware
 {
     /**
-     * @param Request $request
-     * @param Closure $next
-     * @param string ...$types
+     * @param  Request  $request
+     * @param  Closure  $next
+     * @param  string  ...$types
      * @return mixed
      */
     public function handle(Request $request, Closure $next, string ...$types): mixed
@@ -56,8 +56,8 @@ class EnsureUserHasActiveSecretsMiddleware
     }
 
     /**
-     * @param User $user
-     * @param array $accessor_names
+     * @param  User  $user
+     * @param  array  $accessor_names
      * @return void
      */
     public function accessUserSecrets(User $user, array $accessor_names): void

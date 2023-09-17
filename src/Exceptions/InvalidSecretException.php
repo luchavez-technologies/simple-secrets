@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class InvalidSecretException extends Exception
 {
     /**
-     * @param string $type
+     * @param  string  $type
      */
     public function __construct(string $type)
     {
@@ -32,7 +32,7 @@ class InvalidSecretException extends Exception
     /**
      * Render the exception as an HTTP response.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function render(Request $request): JsonResponse

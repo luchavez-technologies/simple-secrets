@@ -3,12 +3,12 @@
 namespace Luchavez\SimpleSecrets\Http\Middleware;
 
 use Exception;
-use Luchavez\SimpleSecrets\Exceptions\InvalidSecretException;
-use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
-use Luchavez\SimpleSecrets\Models\Secret;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Luchavez\SimpleSecrets\Exceptions\InvalidSecretException;
+use Luchavez\SimpleSecrets\Exceptions\NoActiveSecretException;
+use Luchavez\SimpleSecrets\Models\Secret;
 
 /**
  * Class RequireSecretsOrMiddleware
@@ -25,8 +25,8 @@ class RequireSecretsOrMiddleware extends RequireSecretsMiddleware
     public bool $is_and = false;
 
     /**
-     * @param Request $request
-     * @param Collection<Collection> $types
+     * @param  Request  $request
+     * @param  Collection<Collection>  $types
      * @return void
      */
     public function validateSecretsFromRequest(Request $request, Collection $types): void
@@ -44,10 +44,11 @@ class RequireSecretsOrMiddleware extends RequireSecretsMiddleware
     }
 
     /**
-     * @param Request $request
-     * @param User $user
-     * @param Collection<Collection> $types
+     * @param  Request  $request
+     * @param  User  $user
+     * @param  Collection<Collection>  $types
      * @return void
+     *
      * @throws NoActiveSecretException
      * @throws InvalidSecretException
      * @throws Exception

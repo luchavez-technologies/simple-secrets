@@ -2,6 +2,12 @@
 
 namespace Luchavez\SimpleSecrets\Providers;
 
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Application;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Luchavez\SimpleSecrets\Console\Commands\CheckSecretsExpirationCommand;
 use Luchavez\SimpleSecrets\Console\Commands\InstallSimpleSecretsCommand;
 use Luchavez\SimpleSecrets\Http\Middleware\EnsureUserHasActiveSecretsMiddleware;
@@ -16,13 +22,6 @@ use Luchavez\StarterKit\Abstracts\BaseStarterKitServiceProvider as ServiceProvid
 use Luchavez\StarterKit\Interfaces\ProviderConsoleKernelInterface;
 use Luchavez\StarterKit\Interfaces\ProviderDynamicRelationshipsInterface;
 use Luchavez\StarterKit\Interfaces\ProviderHttpKernelInterface;
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Application;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 
 /**
  * Class SimpleSecretsServiceProvider
@@ -42,7 +41,7 @@ class SimpleSecretsServiceProvider extends ServiceProvider implements ProviderHt
     /**
      * @var string|null
      */
-    protected string|null $route_prefix = null;
+    protected ?string $route_prefix = null;
 
     /**
      * @var bool
@@ -97,7 +96,7 @@ class SimpleSecretsServiceProvider extends ServiceProvider implements ProviderHt
      * @var array
      */
     protected array $repository_map = [
-        SecretRepository::class => Secret::class
+        SecretRepository::class => Secret::class,
     ];
 
     /**
@@ -215,7 +214,10 @@ class SimpleSecretsServiceProvider extends ServiceProvider implements ProviderHt
         }
     }
 
-    public function registerAuthenticationGuards()
+    /**
+     * @return void
+     */
+    public function registerAuthenticationGuards(): void
     {
         if ($this->app->configurationIsCached()) {
             return;

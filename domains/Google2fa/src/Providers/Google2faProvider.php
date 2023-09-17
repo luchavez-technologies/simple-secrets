@@ -13,7 +13,7 @@ class Google2faProvider extends ServiceProvider
 {
     protected array $commands = [];
 
-    protected string|null $route_prefix = null;
+    protected ?string $route_prefix = null;
 
     protected bool $prefix_route_with_file_name = false;
 
