@@ -42,6 +42,7 @@ return [
         'index' => 'auth:api',
         'show' => 'auth:api',
         'destroy' => 'auth:api',
+        'restore' => 'auth:api',
     ],
 
     /**

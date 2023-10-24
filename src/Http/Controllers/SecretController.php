@@ -3,18 +3,14 @@
 namespace Luchavez\SimpleSecrets\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
-use Luchavez\SimpleSecrets\Events\Secret\SecretArchivedEvent;
-use Luchavez\SimpleSecrets\Events\Secret\SecretCollectedEvent;
-use Luchavez\SimpleSecrets\Events\Secret\SecretRestoredEvent;
-use Luchavez\SimpleSecrets\Events\Secret\SecretShownEvent;
 use Luchavez\SimpleSecrets\Http\Requests\Secret\DeleteSecretRequest;
 use Luchavez\SimpleSecrets\Http\Requests\Secret\IndexSecretRequest;
 use Luchavez\SimpleSecrets\Http\Requests\Secret\RestoreSecretRequest;
 use Luchavez\SimpleSecrets\Http\Requests\Secret\ShowSecretRequest;
 use Luchavez\SimpleSecrets\Models\Secret;
 use Luchavez\SimpleSecrets\Repositories\SecretRepository;
-use Luchavez\StarterKit\Exceptions\UnauthorizedException;
 use Spatie\QueryBuilder\AllowedFilter;
 
 /**
@@ -24,6 +20,9 @@ use Spatie\QueryBuilder\AllowedFilter;
  */
 class SecretController extends Controller
 {
+    /**
+     * @param  SecretRepository  $repository
+     */
     public function __construct(public SecretRepository $repository)
     {
         $this->middleware(config('simple-secrets.middlewares.index'))->only('index');
@@ -39,12 +38,14 @@ class SecretController extends Controller
      * @param  IndexSecretRequest  $request
      * @return JsonResponse
      *
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      */
     public function index(IndexSecretRequest $request): JsonResponse
     {
-        if (! ($user = $request->user())) {
-            throw new UnauthorizedException();
+        $user = $request->user();
+
+        if (! $user) {
+            throw new AuthorizationException();
         }
 
         $data = $this->repository->builder()
@@ -70,8 +71,6 @@ class SecretController extends Controller
             $data = $data->fastPaginate($request->get('per_page', 15));
         }
 
-        event(new SecretCollectedEvent($data));
-
         return simpleResponse()
             ->data($data)
             ->message('Successfully collected record.')
@@ -88,17 +87,13 @@ class SecretController extends Controller
      * @param  Secret  $secret
      * @return JsonResponse
      *
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      */
     public function show(ShowSecretRequest $request, Secret $secret): JsonResponse
     {
-        $user = $request->user();
-
-        if (! $user || ! $user->is($secret->owner)) {
-            throw new UnauthorizedException();
+        if ($secret->owner()->isNot($request->user())) {
+            throw new AuthorizationException();
         }
-
-        event(new SecretShownEvent($secret));
 
         return simpleResponse()
             ->data($secret)
@@ -116,17 +111,15 @@ class SecretController extends Controller
      * @param  Secret  $secret
      * @return JsonResponse
      *
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      */
     public function destroy(DeleteSecretRequest $request, Secret $secret): JsonResponse
     {
-        if (! ($user = $request->user()) || $user->is($secret->owner)) {
-            throw new UnauthorizedException();
+        if ($secret->owner()->isNot($request->user())) {
+            throw new AuthorizationException();
         }
 
         $secret->delete();
-
-        event(new SecretArchivedEvent($secret));
 
         return simpleResponse()
             ->data($secret)
@@ -141,23 +134,21 @@ class SecretController extends Controller
      * @group Secret Management
      *
      * @param  RestoreSecretRequest  $request
-     * @param $secret
+     * @param  Secret  $secret
      * @return JsonResponse
      *
-     * @throws UnauthorizedException
+     * @throws AuthorizationException
      */
-    public function restore(RestoreSecretRequest $request, $secret): JsonResponse
+    public function restore(RestoreSecretRequest $request, Secret $secret): JsonResponse
     {
-        if (! ($user = $request->user()) || $user->is($secret->owner)) {
-            throw new UnauthorizedException();
+        if ($secret->owner()->isNot($request->user())) {
+            throw new AuthorizationException();
         }
 
-        $data = Secret::withTrashed()->find($secret)->restore();
-
-        event(new SecretRestoredEvent($data));
+        $secret->restore();
 
         return simpleResponse()
-            ->data($data)
+            ->data($secret)
             ->message('Successfully restored record.')
             ->success()
             ->generate();

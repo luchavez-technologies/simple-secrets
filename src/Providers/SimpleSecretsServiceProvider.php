@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Luchavez\SimpleSecrets\Console\Commands\CheckSecretsExpirationCommand;
 use Luchavez\SimpleSecrets\Console\Commands\InstallSimpleSecretsCommand;
 use Luchavez\SimpleSecrets\Http\Middleware\EnsureUserHasActiveSecretsMiddleware;
@@ -118,6 +119,8 @@ class SimpleSecretsServiceProvider extends ServiceProvider implements ProviderHt
         parent::boot();
 
         $this->registerAuthenticationGuards();
+
+        Route::bind('secret', fn (string $uuid) => Secret::withDisabled()->where('uuid', $uuid)->firstOrFail());
     }
 
     /**
