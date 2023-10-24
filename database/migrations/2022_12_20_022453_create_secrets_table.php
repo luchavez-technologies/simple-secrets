@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Luchavez\StarterKit\Enums\OnDeleteAction;
 
 return new class() extends Migration
 {
@@ -16,7 +17,7 @@ return new class() extends Migration
         Schema::create('secrets', static function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->owned(); // from luchavez/starter-kit
+            $table->owned(on_delete: OnDeleteAction::CASCADE); // from luchavez/starter-kit
             $table->unsignedTinyInteger('type');
             $table->string('value');
             $table->string('description')->nullable();
